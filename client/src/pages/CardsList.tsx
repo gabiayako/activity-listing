@@ -24,8 +24,9 @@ function CardsList() {
   return (
     <PageWrapper>
       <Heading mb={4}>Atividades</Heading>
-      {(cards || [])?.map(({ subject, chapter, studentGroup }) => (
+      {(cards || [])?.map(({ id, subject, chapter, studentGroup }) => (
         <Button
+          key={id}
           onClick={() => {
             navigator("/report", { replace: false });
           }}

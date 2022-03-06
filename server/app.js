@@ -20,11 +20,13 @@ app.get("/activities", function (req, res) {
   setTimeout(() => {
     res.send([
       {
+        id: "math-m1",
         subject: "Matemática",
         chapter: "Equações de segundo grau",
         studentGroup: "M1",
       },
       {
+        id: "math-m2",
         subject: "Matemática",
         chapter: "Equações de segundo grau",
         studentGroup: "M2",
