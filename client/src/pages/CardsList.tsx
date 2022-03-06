@@ -1,26 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Heading, Text, Stack, HStack, Button, Badge } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useReports } from "../hooks";
-import axios from "axios";
+import { useActivities, useReports } from "../hooks";
 
 import { PageWrapper } from "../components";
 
 function CardsList() {
-  const [cards, setCards] = useState();
-
-  useEffect(() => {
-    const fetchActivities = async () => {
-      const { data } = await axios.get("http://localhost:9000/activities");
-      console.log("data", data);
-      setCards(data);
-      return data;
-    };
-    fetchActivities();
-  }, []);
+  const { data } = useReports();
+  const { data: cards } = useActivities();
 
   const navigator = useNavigate();
-  const { data } = useReports();
   const meanGrade = useMemo(() => {
     if (data) {
       const sumData = data.reduce((mean: number, { grade }) => {
@@ -34,7 +23,7 @@ function CardsList() {
 
   return (
     <PageWrapper>
-      <Heading mb={4}>Hey</Heading>
+      <Heading mb={4}>Atividades</Heading>
       {(cards || [])?.map(({ subject, chapter, studentGroup }) => (
         <Button
           onClick={() => {
