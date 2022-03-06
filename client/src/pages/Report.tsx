@@ -1,9 +1,8 @@
 import {
-  Center,
-  Divider,
-  Grid,
-  GridItem,
+  Badge,
   Heading,
+  HStack,
+  Stack,
   Table,
   Tbody,
   Td,
@@ -11,7 +10,6 @@ import {
   Th,
   Thead,
   Tr,
-  VStack,
 } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { useReports } from "../hooks";
@@ -34,49 +32,79 @@ function Report() {
 
   return (
     <PageWrapper>
-      <Heading mb={4}>Report</Heading>
-      <Table variant="simple">
-        <Thead>
-          <Tr>
-            <Th>Nome</Th>
-            <Th isNumeric>Nota</Th>
-          </Tr>
-        </Thead>
-
-        <Tbody>
-          {data?.map(({ name, grade }) => (
-            <Tr>
-              <Td>{name}</Td>
-              <Td isNumeric>{grade}</Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-      <Divider height="2px" my="5rem" borderColor="gray.700" />
-      <Grid templateColumns="repeat(2, 1fr)" gap={3}>
-        <GridItem w="100%">
-          <Center bg="yellow.300" h="10rem" w="10rem">
-            <VStack>
-              <Text fontSize="lg" fontWeight="800">
-                Média
-              </Text>
-              <Text>{meanGrade}</Text>
-            </VStack>
-          </Center>
-        </GridItem>
-        <GridItem w="100%">
-          <Center bg="yellow.300" h="10rem" w="10rem">
-            <VStack>
-              <Text fontSize="lg" fontWeight="800">
-                Participação
-              </Text>
-              <Text>{data?.length}</Text>
-            </VStack>
-          </Center>
-        </GridItem>
-      </Grid>
+      <HStack justify="space-between">
+        <Heading mb={4}>Report</Heading>
+        <ActivityStats meanGrade={meanGrade} participation={data?.length} />
+      </HStack>
+      <StudentsList studentGrades={data} />
     </PageWrapper>
   );
 }
+
+const StudentsList = ({
+  studentGrades,
+}: {
+  studentGrades: { name: string; grade: number }[];
+}) => (
+  <Table variant="simple">
+    <Thead>
+      <Tr>
+        <Th>Nome</Th>
+        <Th isNumeric>Nota</Th>
+      </Tr>
+    </Thead>
+
+    <Tbody>
+      {(studentGrades || [])?.map(({ name, grade }) => (
+        <Tr key={name}>
+          <Td>{name}</Td>
+          <Td isNumeric>{grade}</Td>
+        </Tr>
+      ))}
+    </Tbody>
+  </Table>
+);
+
+const ActivityStats = ({
+  meanGrade,
+  participation,
+}: {
+  meanGrade: number;
+  participation: number;
+}) => (
+  <Stack alignItems="flex-end" spacing="0.5rem">
+    {/* <HStack>
+    <Text fontSize="md" fontWeight="bold">
+      Turma
+    </Text>
+    <Badge
+      ml="1"
+      fontSize="0.8em"
+      variant="outline"
+      colorScheme="purple"
+    >
+      {studentGroup}
+    </Badge>
+  </HStack> */}
+
+    <HStack>
+      <Text fontSize="md" fontWeight="bold">
+        Média
+      </Text>
+      <Badge ml="1" fontSize="0.8em" variant="subtle" colorScheme="purple">
+        {meanGrade}
+      </Badge>
+    </HStack>
+
+    <HStack>
+      <Text fontSize="md" fontWeight="bold">
+        Participação
+      </Text>
+      <Badge ml="1" colorScheme="purple" variant="solid">
+        {participation}
+      </Badge>
+    </HStack>
+  </Stack>
+);
 
 export default Report;

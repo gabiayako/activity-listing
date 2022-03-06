@@ -3,7 +3,6 @@ import axios from "axios";
 
 const fetchActivities = async () => {
   const { data } = await axios.get("http://localhost:9000/activities");
-  console.log("data", data);
   return data;
 };
 
