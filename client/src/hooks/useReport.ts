@@ -1,6 +1,14 @@
 import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 
+type Report = {
+  activityId: string;
+  studentData: {
+    name: string;
+    grade: number;
+  }[];
+};
+
 const fetchReport = async () => {
   const { data } = await axios.get("http://localhost:9000/report");
   return data;
@@ -8,7 +16,7 @@ const fetchReport = async () => {
 
 export const useReports = () => {
   const queryClient = useQueryClient();
-  return useQuery("reportData", fetchReport, {
+  return useQuery<Report[]>("reportData", fetchReport, {
     staleTime: 60 * 60 * 1000,
     initialData: () => {
       return queryClient.getQueryData("reportData");

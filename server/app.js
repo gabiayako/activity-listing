@@ -8,10 +8,23 @@ app.use(cors({ origin: "*" }));
 app.get("/report", function (req, res) {
   setTimeout(() => {
     res.send([
-      { name: "Adele", grade: 0 },
-      { name: "Beyonce", grade: 3 },
-      { name: "Celine Dion", grade: 7 },
-      { name: "Demi Lovato", grade: 2 },
+      {
+        activityId: "math-m1",
+        studentData: [
+          { name: "Adele", grade: 0 },
+          { name: "Beyonce", grade: 3 },
+          { name: "Camila Cabello", grade: 7 },
+          { name: "Demi Lovato", grade: 2 },
+        ],
+      },
+      {
+        activityId: "math-m2",
+        studentData: [
+          { name: "Ed Sheeran", grade: 6 },
+          { name: "Felipe Dylon", grade: 3 },
+          { name: "Gloria Groove", grade: 7 },
+        ],
+      },
     ]);
   }, 1000);
 });

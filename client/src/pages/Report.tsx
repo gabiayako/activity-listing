@@ -12,31 +12,52 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useMemo } from "react";
+import { useLocation } from "react-router-dom";
+
 import { useReports } from "../hooks";
 
 import { PageWrapper } from "../components";
 
+type LocationState = {
+  activityId: string;
+};
+
 function Report() {
+  const { state } = useLocation();
+  const { activityId } = state as LocationState;
+
   const { data } = useReports();
+
+  const reportData = useMemo(
+    () => data.find((report) => report.activityId === activityId),
+    [data, activityId]
+  );
 
   const meanGrade = useMemo(() => {
     if (data) {
-      const sumData = data.reduce((mean: number, { grade }) => {
-        mean = mean + grade;
-        return mean;
-      }, 0);
-      const mean = sumData / data.length;
+      console.log("reportData", reportData);
+      const sumData = reportData.studentData.reduce(
+        (mean: number, { grade }) => {
+          mean = mean + grade;
+          return mean;
+        },
+        0
+      );
+      const mean = sumData / reportData.studentData.length;
       return mean;
     }
-  }, [data]);
+  }, [data, reportData]);
 
   return (
     <PageWrapper>
       <HStack justify="space-between">
         <Heading mb={4}>Report</Heading>
-        <ActivityStats meanGrade={meanGrade} participation={data?.length} />
+        <ActivityStats
+          meanGrade={meanGrade}
+          participation={reportData.studentData.length || 0}
+        />
       </HStack>
-      <StudentsList studentGrades={data} />
+      <StudentsList studentGrades={reportData.studentData} />
     </PageWrapper>
   );
 }
@@ -73,26 +94,12 @@ const ActivityStats = ({
   participation: number;
 }) => (
   <Stack alignItems="flex-end" spacing="0.5rem">
-    {/* <HStack>
-    <Text fontSize="md" fontWeight="bold">
-      Turma
-    </Text>
-    <Badge
-      ml="1"
-      fontSize="0.8em"
-      variant="outline"
-      colorScheme="purple"
-    >
-      {studentGroup}
-    </Badge>
-  </HStack> */}
-
     <HStack>
       <Text fontSize="md" fontWeight="bold">
         Média
       </Text>
       <Badge ml="1" fontSize="0.8em" variant="subtle" colorScheme="purple">
-        {meanGrade}
+        {meanGrade.toFixed(1)}
       </Badge>
     </HStack>
 
