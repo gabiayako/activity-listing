@@ -1,5 +1,12 @@
-import { useMemo } from "react";
-import { Heading, Text, Stack, HStack, Button, Badge } from "@chakra-ui/react";
+import {
+  Badge,
+  Button,
+  Heading,
+  HStack,
+  Skeleton,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useActivities, useReports } from "../hooks";
 
@@ -9,21 +16,25 @@ function CardsList() {
   const navigator = useNavigate();
   const { data: cards } = useActivities();
 
-  const { data } = useReports();
+  const { data, isLoading, isSuccess } = useReports();
 
   return (
     <PageWrapper>
       <Heading mb={4}>Atividades</Heading>
       {(cards || [])?.map(({ id, subject, chapter, studentGroup }) => {
-        const reportData = data.find((report) => report.activityId === id);
-        const sumData = reportData.studentData.reduce(
+        const reportData = (data || []).find(
+          (report) => report.activityId === id
+        );
+        const sumData = (reportData?.studentData || []).reduce(
           (mean: number, { grade }) => {
             mean = mean + grade;
             return mean;
           },
           0
         );
-        const meanGrade = sumData / reportData.studentData.length;
+        const meanGrade = reportData
+          ? sumData / reportData.studentData.length
+          : 0;
 
         return (
           <Button
@@ -79,14 +90,16 @@ function CardsList() {
                   <Text fontSize="md" fontWeight="bold">
                     Média
                   </Text>
-                  <Badge
-                    ml="1"
-                    fontSize="0.8em"
-                    variant="subtle"
-                    colorScheme="purple"
-                  >
-                    {meanGrade.toFixed(1)}
-                  </Badge>
+                  <Skeleton isLoaded={!isLoading && isSuccess}>
+                    <Badge
+                      ml="1"
+                      fontSize="0.8em"
+                      variant="subtle"
+                      colorScheme="purple"
+                    >
+                      {meanGrade.toFixed(1)}
+                    </Badge>
+                  </Skeleton>
                 </HStack>
 
                 <HStack>
