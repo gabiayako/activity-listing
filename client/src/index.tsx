@@ -5,15 +5,6 @@ import * as React from "react";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
-import { setupWorker } from "msw";
-import { handlers } from "../src/mocks/handlers";
-
-const loadWorker = () => {
-  const worker = setupWorker(...handlers);
-  worker.start();
-};
-
-// loadWorker();
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
