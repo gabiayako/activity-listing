@@ -18,6 +18,7 @@ export const useReports = () => {
   const queryClient = useQueryClient();
   return useQuery<Report[]>("reportData", fetchReport, {
     staleTime: 60 * 60 * 1000,
+    refetchOnWindowFocus: "always",
     initialData: () => {
       return queryClient.getQueryData("reportData");
     },

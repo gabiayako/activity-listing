@@ -11,7 +11,7 @@ app.get("/report", function (req, res) {
       {
         activityId: "math-m1",
         studentData: [
-          { name: "Adele", grade: 0 },
+          { name: "Adele", grade: 10 },
           { name: "Beyonce", grade: 3 },
           { name: "Camila Cabello", grade: 7 },
           { name: "Demi Lovato", grade: 2 },
