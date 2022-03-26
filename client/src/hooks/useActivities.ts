@@ -10,6 +10,7 @@ export const useActivities = () => {
   const queryClient = useQueryClient();
   return useQuery("activities", fetchActivities, {
     staleTime: 60 * 60 * 1000,
+    refetchOnWindowFocus: "always",
     initialData: () => {
       return queryClient.getQueryData("activities");
     },

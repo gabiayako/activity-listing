@@ -11,18 +11,18 @@ app.get("/report", function (req, res) {
       {
         activityId: "math-m1",
         studentData: [
-          { name: "Adele", grade: 10 },
-          { name: "Beyonce", grade: 3 },
-          { name: "Camila Cabello", grade: 7 },
+          { name: "Adele", grade: null },
+          { name: "Beyonce", grade: null },
+          { name: "Camila Cabello", grade: null },
           { name: "Demi Lovato", grade: 2 },
         ],
       },
       {
         activityId: "math-m2",
         studentData: [
-          { name: "Ed Sheeran", grade: 6 },
+          { name: "Ed Sheeran", grade: null },
           { name: "Felipe Dylon", grade: 3 },
-          { name: "Gloria Groove", grade: 7 },
+          { name: "Gessica Kayane", grade: 7 },
         ],
       },
     ]);
