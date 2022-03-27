@@ -13,7 +13,7 @@ app.get("/report", function (req, res) {
         studentData: [
           { name: "Adele", grade: null },
           { name: "Beyonce", grade: null },
-          { name: "Camila Cabello", grade: null },
+          { name: "Camila Cabello", grade: 2 },
           { name: "Demi Lovato", grade: 2 },
         ],
       },
@@ -21,7 +21,7 @@ app.get("/report", function (req, res) {
         activityId: "math-m2",
         studentData: [
           { name: "Ed Sheeran", grade: null },
-          { name: "Felipe Dylon", grade: 3 },
+          { name: "Felipe Dylon", grade: 10 },
           { name: "Gessica Kayane", grade: 7 },
         ],
       },

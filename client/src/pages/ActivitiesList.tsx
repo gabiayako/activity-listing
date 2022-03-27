@@ -18,11 +18,12 @@ function ActivitiesList() {
             );
 
             const { meanGrade, participation } = getMeanGradeAndParticipation(
-              report.studentData
+              report?.studentData
             );
 
             return (
               <ActivityCard
+                key={id}
                 activityId={id}
                 chapter={chapter}
                 isReportLoading={isReportLoading}

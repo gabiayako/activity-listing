@@ -16,9 +16,11 @@ function Report() {
 
   const { data: reports } = useReports();
 
-  const report = reports.find((report) => report.activityId === activityId);
+  const report = (reports || []).find(
+    (report) => report.activityId === activityId
+  );
   const { meanGrade, participation } = getMeanGradeAndParticipation(
-    report.studentData
+    report?.studentData
   );
 
   return (
@@ -27,7 +29,7 @@ function Report() {
         <Heading mb={4}>Report</Heading>
         <ActivityStats meanGrade={meanGrade} participation={participation} />
       </HStack>
-      <StudentsList studentData={report.studentData} />
+      <StudentsList studentData={report?.studentData} />
     </PageWrapper>
   );
 }

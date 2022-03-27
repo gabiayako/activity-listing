@@ -93,9 +93,11 @@ export const ActivityCard = ({
             <Text fontSize="md" fontWeight="bold">
               Participação
             </Text>
-            <Badge ml="1" colorScheme="purple" variant="solid">
-              {formatPercentage(participation)}
-            </Badge>
+            <Skeleton isLoaded={!isReportLoading}>
+              <Badge ml="1" colorScheme="purple" variant="solid">
+                {formatPercentage(participation)}
+              </Badge>
+            </Skeleton>
           </HStack>
         </Stack>
       </HStack>
