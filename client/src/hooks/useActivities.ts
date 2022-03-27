@@ -1,8 +1,8 @@
 import { useQuery, useQueryClient } from "react-query";
-import axios from "axios";
 
 const fetchActivities = async () => {
-  const { data } = await axios.get("http://localhost:9000/activities");
+  const response = await fetch("http://localhost:9000/activities");
+  const data = await response.json();
   return data;
 };
 

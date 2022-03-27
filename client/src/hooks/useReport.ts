@@ -1,5 +1,4 @@
 import { useQuery, useQueryClient } from "react-query";
-import axios from "axios";
 
 type Report = {
   activityId: string;
@@ -10,7 +9,8 @@ type Report = {
 };
 
 const fetchReport = async () => {
-  const { data } = await axios.get("http://localhost:9000/report");
+  const response = await fetch("http://localhost:9000/report");
+  const data = await response.json();
   return data;
 };
 
