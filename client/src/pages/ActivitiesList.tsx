@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useQuery } from "react-query";
 import { Heading } from "@chakra-ui/react";
 
 import { PageWrapper, ActivityCard } from "../components";
@@ -10,18 +10,17 @@ interface Activity {
   studentGroup: string;
 }
 
+const fetchActivities = async () => {
+  const response = await fetch("http://localhost:9000/activities");
+  const data = await response.json();
+  return data;
+};
+
 function ActivitiesList() {
-  const [activities, setActivities] = useState<Activity[]>([]);
-
-  useEffect(() => {
-    const fetchActivities = async () => {
-      const response = await fetch("http://localhost:9000/activities");
-      const data = await response.json();
-      setActivities(data);
-    };
-
-    fetchActivities();
-  }, []);
+  const { data: activities } = useQuery<Activity[]>(
+    "activities",
+    fetchActivities
+  );
 
   return (
     <PageWrapper>
