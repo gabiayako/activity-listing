@@ -73,36 +73,32 @@ export const ActivityCard = ({
             </Badge>
           </HStack>
 
-          {meanGrade ? (
-            <HStack>
-              <Text fontSize="md" fontWeight="bold">
-                Média
-              </Text>
-              <Skeleton isLoaded={!isReportLoading}>
-                <Badge
-                  ml="1"
-                  fontSize="0.8em"
-                  variant="subtle"
-                  colorScheme="purple"
-                >
-                  {meanGrade.toFixed(1)}
-                </Badge>
-              </Skeleton>
-            </HStack>
-          ) : null}
+          <HStack>
+            <Text fontSize="md" fontWeight="bold">
+              Média
+            </Text>
+            <Skeleton isLoaded={!isReportLoading}>
+              <Badge
+                ml="1"
+                fontSize="0.8em"
+                variant="subtle"
+                colorScheme="purple"
+              >
+                {meanGrade.toFixed(1)}
+              </Badge>
+            </Skeleton>
+          </HStack>
 
-          {participation ? (
-            <HStack>
-              <Text fontSize="md" fontWeight="bold">
-                Participação
-              </Text>
-              <Skeleton isLoaded={!isReportLoading}>
-                <Badge ml="1" colorScheme="purple" variant="solid">
-                  {formatPercentage(participation)}
-                </Badge>
-              </Skeleton>
-            </HStack>
-          ) : null}
+          <HStack>
+            <Text fontSize="md" fontWeight="bold">
+              Participação
+            </Text>
+            <Skeleton isLoaded={!isReportLoading}>
+              <Badge ml="1" colorScheme="purple" variant="solid">
+                {formatPercentage(participation)}
+              </Badge>
+            </Skeleton>
+          </HStack>
         </Stack>
       </HStack>
     </Button>

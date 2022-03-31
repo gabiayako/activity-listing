@@ -4,6 +4,7 @@ import { Heading } from "@chakra-ui/react";
 import { PageWrapper, ActivityCard } from "../components";
 
 import { getMeanGradeAndParticipation } from "../utils";
+import { useReports } from "../hooks";
 
 interface Activity {
   id: string;
@@ -18,17 +19,6 @@ const fetchActivities = async () => {
   return data;
 };
 
-interface Report {
-  activityId: string;
-  studentData: { name: string; grade: number | null }[];
-}
-
-const fetchReport = async () => {
-  const response = await fetch("http://localhost:9000/reports");
-  const data = await response.json();
-  return data;
-};
-
 function ActivitiesList() {
   const { data: activities } = useQuery<Activity[]>(
     "activities",
@@ -38,9 +28,7 @@ function ActivitiesList() {
     }
   );
 
-  const { data: reports } = useQuery<Report[]>("reports", fetchReport, {
-    staleTime: 1000 * 60,
-  });
+  const { data: reports, isLoading: isReportLoading } = useReports();
 
   return (
     <PageWrapper>
@@ -60,6 +48,7 @@ function ActivitiesList() {
                 key={id}
                 activityId={id}
                 chapter={chapter}
+                isReportLoading={isReportLoading}
                 meanGrade={meanGrade}
                 participation={participation}
                 studentGroup={studentGroup}
