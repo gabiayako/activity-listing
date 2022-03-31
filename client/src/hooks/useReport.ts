@@ -9,7 +9,7 @@ type Report = {
 };
 
 const fetchReport = async () => {
-  const response = await fetch("http://localhost:9000/report");
+  const response = await fetch("http://localhost:9000/reports");
   const data = await response.json();
   return data;
 };
@@ -17,10 +17,10 @@ const fetchReport = async () => {
 export const useReports = () => {
   const queryClient = useQueryClient();
   return useQuery<Report[]>("reportData", fetchReport, {
-    staleTime: 60 * 60 * 1000,
-    refetchOnWindowFocus: "always",
-    initialData: () => {
-      return queryClient.getQueryData("reportData");
-    },
+    staleTime: 60 * 1000,
+    // refetchOnWindowFocus: "always",
+    // initialData: () => {
+    //   return queryClient.getQueryData("reportData");
+    // },
   });
 };

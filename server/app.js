@@ -5,15 +5,15 @@ const cors = require("cors");
 const app = express();
 app.use(cors({ origin: "*" }));
 
-app.get("/report", function (req, res) {
+app.get("/reports", function (req, res) {
   setTimeout(() => {
     res.send([
       {
         activityId: "math-m1",
         studentData: [
-          { name: "Adele", grade: null },
-          { name: "Beyonce", grade: null },
-          { name: "Camila Cabello", grade: 2 },
+          { name: "Adele", grade: 10 },
+          { name: "Beyonce", grade: 10 },
+          { name: "Camila Cabello", grade: 5 },
           { name: "Demi Lovato", grade: 2 },
         ],
       },
