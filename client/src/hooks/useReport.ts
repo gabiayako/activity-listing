@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "react-query";
 type Report = {
   activityId: string;
   studentData: {
+    id: string;
     name: string;
     grade: number;
   }[];
